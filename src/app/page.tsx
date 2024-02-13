@@ -35,8 +35,8 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="container mx-auto py-10">
+    <main className="flex min-h-screen flex-col items-center justify-between py-10">
+      <div className="container mx-auto">
         <DataTable columns={columns} data={products} />
       </div>
     </main>
