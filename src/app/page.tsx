@@ -1,16 +1,43 @@
+"use client"
+import { columns } from "@/components/products-table/columns";
+import { DataTable } from "@/components/products-table/data-table";
 import db from "@/modules/db";
+import { useEffect, useState } from "react";
 
-export default async function Home() {
+type ProductTypes = {
+  id: number;
+  categoryId: number;
+  categoryName: string;
+  sku: string;
+  name: string;
+  description: string;
+  weight: number;
+  width: number;
+  length: number;
+  height: number;
+  image: string;
+  harga: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
-  const products = await db.product.findMany({orderBy: {createdAt: 'desc'}});
+export default function Home() {
+  const [products, setProducts] = useState<ProductTypes[]>([]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      const productsData = await fetch("/api")
+      const response = await productsData.json()
+      setProducts(response);
+    }
+
+    fetchProducts();
+  }, []);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <button>Generate product</button>
-      <div>
-        {products.map((product:any) => (
-          <div key={product.id}/>
-        ))}
+      <div className="container mx-auto py-10">
+        <DataTable columns={columns} data={products} />
       </div>
     </main>
   );
