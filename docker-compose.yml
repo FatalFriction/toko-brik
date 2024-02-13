@@ -2,7 +2,8 @@ services:
   postgres:
     image: postgres:16
     ports:
-      - 5432:5432  # enables connecting locally via psql
+      - 6500:5432  # enables connecting locally via psql
     environment:
       POSTGRES_DB: brik_dev
-      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: pawned
