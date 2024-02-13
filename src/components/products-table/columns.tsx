@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { ArrowUpDown } from "lucide-react";
+import { CardModal } from "../modals";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -61,7 +62,15 @@ export const columns: ColumnDef<Product>[] = [
             currency: "IDR",
         }).format(amount)
     
-        return <div className="text-right font-medium">{formatted}</div>
+        return <div className="text-right font-bold">{formatted}</div>
         },
     },
+    {
+        accessorKey: "details",
+        header: () => <></>,
+          cell: ({ row }) => {
+          const product = row.original
+          return <CardModal data={product}/>
+          },
+      },
   ];
