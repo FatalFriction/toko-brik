@@ -34,6 +34,8 @@ export default function Home() {
     fetchProducts();
   }, []);
 
+  //TODO AUTHENTICATION + ADD PRODUCTS + RESPONSIVE DESIGN
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between py-10">
       <div className="container mx-auto">
