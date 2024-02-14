@@ -23,6 +23,7 @@ import {
 import { Button } from "../ui/button"
 import { useState } from "react"
 import { Input } from "../ui/input"
+import { AddProductCardModal } from "../modals/addproduct"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -55,7 +56,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-    <div className="flex items-center py-4">
+    <div className="flex flex-row items-center py-4">
         <Input
           placeholder="Search Products..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -64,6 +65,7 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
+        <AddProductCardModal/>
       </div>
     <div className="rounded-md border">
       <Table>
