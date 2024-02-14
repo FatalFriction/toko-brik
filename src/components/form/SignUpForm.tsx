@@ -14,21 +14,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import Link from 'next/link';
-
-const FormSchema = z
-  .object({
-    username: z.string().min(1, 'Username is required').max(100),
-    email: z.string().min(1, 'Email is required').email('Invalid email'),
-    password: z
-      .string()
-      .min(1, 'Password is required')
-      .min(8, 'Password must have than 8 characters'),
-    confirmPassword: z.string().min(1, 'Password confirmation is required'),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ['confirmPassword'],
-    message: 'Password do not match',
-  });
+import { FormSchema } from '@/lib/validation/UpFormSchema';
+import { useRouter } from 'next/navigation';
 
 const SignUpForm = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -41,8 +28,27 @@ const SignUpForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof FormSchema>) => {
-    console.log(values);
+  const router = useRouter()
+
+  const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+    const res = await fetch('/api/user', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      })
+    })
+
+    if(res.ok) {
+      router.push('/signin')
+    }
+    else {
+      console.error("Sign Up failed")
+    }
   };
 
   return (
