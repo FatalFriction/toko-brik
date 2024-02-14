@@ -43,13 +43,13 @@ export const options: NextAuthOptions = {
             })
 
             if(!exist) {
-                return null
+                throw new Error("User not found")
             }
 
             const passFind = await compare(credentials!.password, exist.password)
 
             if(!passFind) {
-                return null
+                throw new Error("Password Invalid")
             }
 
             return { 
@@ -60,4 +60,24 @@ export const options: NextAuthOptions = {
         }
     })
     ],
+    callbacks: {
+        async jwt({ token, user }) {
+            if(user) {
+                return {
+                    ...token,
+                    username: user.username
+                }
+            }
+        return token
+        },
+        async session({ session, token }) {
+            return {
+                ...session,
+                user: {
+                    ...session.user,
+                    username: token.username,
+                }
+            }
+        },
+    }
 }

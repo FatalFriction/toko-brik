@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { FormSchema } from '@/lib/validation/FormSchema';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 const SignInForm = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -38,9 +39,10 @@ const SignInForm = () => {
     })
     
     if(SignData?.error) {
-      console.log(SignData.error)
+      toast.error(SignData.error)
     }
     else {
+      router.refresh()
       router.push('/')
     }
   };
