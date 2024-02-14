@@ -6,7 +6,7 @@ import Image from "next/image";
 
 function AuthButton() {
   const { data: session } = useSession();
-
+  
   if (session) {
     return (
       <div className="flex flex-row p-4 items-center justify-between">

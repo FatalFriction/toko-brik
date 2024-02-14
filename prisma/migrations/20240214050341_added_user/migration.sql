@@ -1,6 +1,18 @@
 -- CreateTable
+CREATE TABLE "User" (
+    "id" SERIAL NOT NULL,
+    "email" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Product" (
-    "id" INTEGER NOT NULL,
+    "id" SERIAL NOT NULL,
     "categoryId" INTEGER NOT NULL,
     "categoryName" TEXT NOT NULL,
     "sku" TEXT NOT NULL,
@@ -17,6 +29,12 @@ CREATE TABLE "Product" (
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
 -- CreateIndex
 CREATE INDEX "Product_createdAt_idx" ON "Product"("createdAt");

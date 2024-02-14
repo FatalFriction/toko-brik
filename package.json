@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:migrate": "dotenv -e .env.development -- npx prisma migrate dev",
+    "db:migrate": "dotenv -e .env.development -- pnpx prisma migrate dev",
     "db:studio": "dotenv -e .env.development -- pnpx prisma studio",
     "db:wipe": "dotenv -e .env.development -- pnpx prisma migrate reset",
     "db:seed": "dotenv -e .env.development -- pnpx prisma db seed"
