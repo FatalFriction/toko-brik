@@ -1,18 +1,9 @@
 import NextAuth from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
+import { options } from "./options";
 
 const dotenv = require('dotenv');
 dotenv.config({ path: '../../../../../.env.development' });
 
-export const authOptions = {
-    providers: [
-        GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID ?? "",
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ""
-        })
-    ]
-}
-
-export const handler = NextAuth(authOptions)
+export const handler = NextAuth(options)
 
 export { handler as GET, handler as POST }
