@@ -1,20 +1,31 @@
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import { compare } from "bcrypt";
+import db from "@/modules/db"
 
 export const options: NextAuthOptions = {
+    adapter: PrismaAdapter(db),
+    session: {
+        strategy: 'jwt'
+    },
+    pages: {
+        signIn: "/signin",
+        newUser: "/signup",
+    },
     providers: [
-        GoogleProvider({
-        clientId: process.env.GOOGLE_CLIENT_ID ?? "",
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ""
-    }),
+    //     GoogleProvider({
+    //     clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+    //     clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ""
+    // }),
     CredentialsProvider({
         name: "Credentials",
         credentials: {
-            username: {
-                label: "Username",
-                type: "text",
-                placeholder: "input your username"
+            email: {
+                label: "Email",
+                type: "email",
+                placeholder: "johndoe@gmail.com"
             },
             password: {
                 label: "password",
@@ -23,13 +34,28 @@ export const options: NextAuthOptions = {
             }
         },
         async authorize(credentials) {
-            const user = { id: "12", name: "Michael Florentio", password: "nextauth" }
-
-            if(credentials?.username === user.name && credentials?.password === user.password) {
-                return user
+            if(!credentials?.email || !credentials?.password) {
+                throw new Error("Invalid Credentials")
             }
-            else {
+            
+            const exist = await db.user.findUnique({
+                where: { email: credentials?.email }
+            })
+
+            if(!exist) {
                 return null
+            }
+
+            const passFind = await compare(credentials!.password, exist.password)
+
+            if(!passFind) {
+                return null
+            }
+
+            return { 
+                id: `${exist.id}`,
+                username: exist.username,
+                email: exist.email
             }
         }
     })

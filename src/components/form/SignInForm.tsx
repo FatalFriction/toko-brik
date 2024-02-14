@@ -15,6 +15,8 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import { FormSchema } from '@/lib/validation/FormSchema';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const SignInForm = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -25,8 +27,22 @@ const SignInForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof FormSchema>) => {
-    console.log(values);
+  const router = useRouter()
+
+  const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+    const SignData = await signIn('credentials', {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+      // callbackUrl: '/'
+    })
+    
+    if(SignData?.error) {
+      console.log(SignData.error)
+    }
+    else {
+      router.push('/')
+    }
   };
 
   return (
