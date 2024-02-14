@@ -1,7 +1,7 @@
 "use client"
+
 import { columns } from "@/components/products-table/columns";
 import { DataTable } from "@/components/products-table/data-table";
-import db from "@/modules/db";
 import { useEffect, useState } from "react";
 
 type ProductTypes = {
@@ -35,7 +35,7 @@ export default function Home() {
   }, []);
 
   //TODO AUTHENTICATION + ADD PRODUCTS + RESPONSIVE DESIGN
-
+  
   return (
     <main className="flex min-h-screen flex-col items-center justify-between py-10">
       <div className="container mx-auto">
