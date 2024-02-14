@@ -23,9 +23,6 @@ function AuthButton() {
   }
   return (
     <>
-      Not signed in 
-      <br/>
-      <Button onClick={() => signIn()}>Sign in</Button>
     </>
   );
 }
