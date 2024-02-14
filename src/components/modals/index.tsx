@@ -68,9 +68,9 @@ export const CardModal = ({ data }: { data: Product }) => {
                     <DialogDescription className="py-4 px-4 space-y-4">
                         <p className="break-words text-base">{data.description}</p>
                         <div className="flex flex-row items-center font-medium text-lg">Harga:
-                        <p className="px-4 text-base text-black font-bold">
-                            {formatted}
-                        </p>
+                            <p className="px-4 text-base text-black font-bold">
+                                {formatted}
+                            </p>
                         </div>
                     </DialogDescription>
                 </DialogHeader>
