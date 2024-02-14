@@ -1,39 +1,19 @@
-import { NextResponse } from "next/server";
-import db from "@/modules/db";
-import { hash } from "bcrypt";
-import { ProductSchema } from "@/lib/validation/productSchema";
-import { getCategoryName } from "@/lib/categoryName";
-import { revalidatePath } from "next/cache";
+import { NextResponse } from 'next/server';
+import { ProductSchema } from '@/lib/validation/productSchema';
+import db from '@/modules/db';
+import { revalidatePath } from 'next/cache';
 
-export async function POST(
-  req: Request,
-) {
+export async function POST(req: Request) {
   try {
     const body = await req.json();
     
-    const { 
-        categoryId,
-        categoryName,
-        sku,
-        name,
-        description,
-        weight,
-        width,
-        length,
-        height,
-        image,
-        harga,  } = ProductSchema.parse(body);
-        
-        const categoriesName = getCategoryName(categoryId);
-
+    console.log(body)
     const addProduct = await db.product.create({
-        data: { categoryName: categoriesName ,...body }
+        data: {  ...body }
     })
-    
-    revalidatePath("/")
-    return NextResponse.json({ Product: addProduct, message: "Product Successfully Registered"}, { status: 201 });
 
+    return NextResponse.json({productData:addProduct , message: 'Product Successfully Registered' }, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ message: "Internal Server Error"}, { status: 500 });
+    return NextResponse.json({ message: 'Internal Product Server Error' }, { status: 500 });
   }
 }
