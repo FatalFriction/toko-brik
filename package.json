@@ -13,6 +13,7 @@
     "db:seed": "dotenv -e .env.development -- pnpx prisma db seed"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^1.3.3",
     "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "5.9.1",
     "@radix-ui/react-dialog": "^1.0.5",
