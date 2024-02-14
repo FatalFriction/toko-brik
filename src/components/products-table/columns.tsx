@@ -46,7 +46,7 @@ export const columns: ColumnDef<Product>[] = [
     },
     {
       accessorKey: "image",
-      header: () => <div className="text-center">Image</div>,
+      header: () => <div>Image</div>,
         cell: ({ row }) => {
         const url = row.getValue("image") as string
         return <Image src={url} alt="product_images" width={200} height={200}/>
@@ -54,7 +54,14 @@ export const columns: ColumnDef<Product>[] = [
     },
     {
       accessorKey: "harga",
-      header: () => <div className="text-center">Harga</div>,
+      header: ({ column }) => 
+        <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "desc")}
+            className="right-0"> 
+            Harga
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>,
         cell: ({ row }) => {
         const amount = parseInt(row.getValue("harga"))   
         const formatted = new Intl.NumberFormat("en-US", {
@@ -62,7 +69,7 @@ export const columns: ColumnDef<Product>[] = [
             currency: "IDR",
         }).format(amount)
     
-        return <div className="text-right font-bold">{formatted}</div>
+        return <div className="font-bold">{formatted}</div>
         },
     },
     {
