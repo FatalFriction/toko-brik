@@ -1,5 +1,4 @@
-export function getCategoryName(categoryId:number) {
-    //logic to map categoryId to categoryName
+export function getCategoryName(categoryId:number) { 
     switch (categoryId) {
         case 1:
             return 'Cemilan';
