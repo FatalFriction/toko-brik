@@ -21,7 +21,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Label } from "../ui/label";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getCategoryId } from "@/lib/categoryId";
 
 interface Product {
@@ -95,8 +95,11 @@ export const AddProductCardModal = () => {
 
       const onSubmit = async (values: z.infer<typeof ProductSchema>) => {
         
+        if(!file) {
+            toast.error("Please upload an image")
+            return
+        }
         const imageurl = await handleUpload()
-        console.log(imageurl)
 
         const res = await fetch('/api/product', {
         method: "POST",
@@ -129,9 +132,14 @@ export const AddProductCardModal = () => {
         }
     }
 
+    //gc for image
+    useEffect(() => {
+        SetImage('')
+    },[open])
+
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger className="mx-4 px-4 bg-[#53D769] text-secondary-foreground hover:bg-[#53D769]/80 h-10 py-2 rounded-md font-bold">Add Product</DialogTrigger>
+            <DialogTrigger className="mx-2 lg:mx-4 px-4 lg:text-base text-sm bg-[#53D769] text-secondary-foreground hover:bg-[#53D769]/80 h-10 lg:py-2 rounded-md font-bold">Add Product</DialogTrigger>
             <DialogContent className="flex flex-col max-w-4xl">
                 <DialogHeader>
                     <DialogTitle className="pb-4">Add Product</DialogTitle>
@@ -199,11 +207,19 @@ export const AddProductCardModal = () => {
                             </div>
                             <div className="grid w-full max-w-sm items-center gap-1.5">
                                 <Label htmlFor="picture">Picture</Label>
-                                <Input id="picture" type="file" onChange={({target}) => {
-                                    if(target.files) {
+                                <Input id="picture" type="file" accept="image/*" onChange={({target}) => {
+                                    if (target.files && target.files.length > 0) {
                                         const file = target.files[0];
-                                        SetImage(URL.createObjectURL(file))
-                                        setFile(file)
+                                        // Check if the file is an image
+                                        if (file.type.startsWith('image/')) {
+                                            SetImage(URL.createObjectURL(file));
+                                            setFile(file);
+                                        } else {
+                                            // Toast error if the file is not an image
+                                            toast.error('Please select an image file');
+                                            // Clear the input field
+                                            target.value = '';
+                                        }
                                     }
                                 }}/>
                             </div>
@@ -222,7 +238,8 @@ export const AddProductCardModal = () => {
                                     <FormItem>
                                     <FormLabel>Weight</FormLabel>
                                     <FormControl>
-                                        <Input 
+                                        <Input
+                                            className="px-2"
                                             type="number"
                                             {...field}
                                         />
@@ -239,7 +256,8 @@ export const AddProductCardModal = () => {
                                     <FormItem>
                                     <FormLabel>Width</FormLabel>
                                     <FormControl>
-                                        <Input 
+                                        <Input
+                                            className="px-2"
                                             type="number"
                                             {...field}
                                         />
@@ -258,7 +276,8 @@ export const AddProductCardModal = () => {
                                     <FormItem>
                                     <FormLabel>Length</FormLabel>
                                     <FormControl>
-                                        <Input 
+                                        <Input
+                                            className="px-2"
                                             type="number"
                                             {...field}
                                         />
@@ -275,7 +294,8 @@ export const AddProductCardModal = () => {
                                 <FormItem>
                                 <FormLabel>Height</FormLabel>
                                 <FormControl>
-                                        <Input 
+                                        <Input
+                                            className="px-2"
                                             type="number"
                                             {...field}
                                         />
@@ -288,13 +308,13 @@ export const AddProductCardModal = () => {
                         </div>
                         <Separator/>
                         </section>
-                        <div className="flex flex-col justify-between">    
+                        <div className="flex flex-col justify-between ml-4">    
                             <FormField
                             control={form.control}
                             name="sku"
                             render={({ field }) => (
                                 <FormItem>
-                                <FormLabel>sku</FormLabel>
+                                <FormLabel>SKU</FormLabel>
                                 <FormControl>
                                     <Input placeholder="input product sku" {...field} />
                                 </FormControl>

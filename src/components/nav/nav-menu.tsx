@@ -10,14 +10,14 @@ function AuthButton() {
   if (session) {
     return (
       <div className="flex flex-row p-4 items-center justify-between">
-        <h3 className="flex items-center font-semibold text-lg">
+        <h3 className="flex items-center font-semibold truncate text-sm lg:text-lg w-[60%]">
         {session?.user?.image && (
           <Image src={session.user.image} width={30} height={30} alt="user_image" className="rounded-full mx-3"/>
         )}
           Hello {session?.user?.username}!
         </h3>
         <br/>
-        <Button onClick={() => signOut()}>Sign out</Button>
+        <Button className="text-sm lg:text-base" onClick={() => signOut()}>Sign out</Button>
       </div>
     );
   }

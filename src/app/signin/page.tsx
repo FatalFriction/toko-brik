@@ -3,7 +3,7 @@ import React from 'react'
 
 const signIn = () => {
   return (
-    <div className='w-[30%] mx-auto mt-60'>
+    <div className='grid h-screen place-items-center px-10 lg:w-[30%] mx-auto overflow-hidden'>
       <SignInForm/>
     </div>
   )
