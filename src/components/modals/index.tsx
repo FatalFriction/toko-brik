@@ -35,19 +35,19 @@ export const CardModal = ({ data }: { data: Product }) => {
     return (
         <Dialog>
             <DialogTrigger className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-10 py-2 rounded-md">Details</DialogTrigger>
-            <DialogContent className="flex flex-col max-w-5xl max-h-full">
+            <DialogContent className="flex flex-col max-w-[23rem] lg:max-w-5xl">
                 <DialogHeader>
-                    <DialogTitle className="pb-4">Products Detail</DialogTitle>
-                    <div className="flex flex-row justify-evenly space-y-2">
-                        <Image src={data.image} alt="product_images" width={600} height={200}/>
+                    <DialogTitle className="pb-4 text-base lg:text-lg">Products Detail</DialogTitle>
+                    <div className="flex flex-col lg:flex-row justify-evenly space-y-2">
+                        <Image src={data.image} alt="product_images" width={400} height={200}/>
                         <div className="flex flex-col space-y-3 text-center items-center self-center">
-                            <h1 className="font-extrabold">{data.name}</h1>
+                            <h1 className="font-extrabold text-base lg:text-lg">{data.name}</h1>
                             <Button variant="secondary" className="pointer-events-none">{data.categoryName}</Button>
                             <Separator/>
                             <section className="border border-black space-y-1 px-4">
-                            <p className="text-lg font-semibold pt-1">Dimensions</p>
+                            <p className="text-sm lg:text-lg font-semibold pt-1">Dimensions</p>
                             <Separator/>
-                                <div className="flex h-5 items-center space-x-4 text-sm font-semibold">
+                                <div className="flex h-5 items-center space-x-4 text-xs lg:text-sm font-semibold">
                                     <div>Width</div>
                                     <Separator orientation="vertical" />
                                     <div>Length</div>
@@ -70,9 +70,9 @@ export const CardModal = ({ data }: { data: Product }) => {
                         </div>
                     </div>
                     <DialogDescription className="py-4 px-4 space-y-4">
-                        <p className="break-words text-base">{data.description}</p>
-                        <div className="flex flex-row items-center font-medium text-lg">Harga:
-                            <p className="px-4 text-base text-black font-bold">
+                        <p className="break-words text-xs lg:text-base text-ellipsis">{data.description}</p>
+                        <div className="flex flex-row items-center font-medium text-sm lg:text-lg">Harga:
+                            <p className="px-4 text-sm lg:text-base text-black font-bold">
                                 {formatted}
                             </p>
                         </div>
