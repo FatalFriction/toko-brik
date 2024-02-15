@@ -123,7 +123,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
     4. in order to find products, i provided a search products method: type and find
         note: another options i provided is ability to sort based on products name & price simply pres the arror icon on the table header
     5. click add product button to add product
-        5.1 input all required information 
+        5.1 input all required information
         5.2 makesure on dimensions and price form you have all value set without 0 as prefix i.e `012` or `020`
         5.3 to upload an image simply choose file and select
             note: -SKU must contain 4 character
@@ -138,6 +138,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
     8. to look for details click details button to pop the details information of products
         8.1 for mobile user please swipe the table until you find the details button alternatively you can utilise column button to hide all columns except for details and name
     9. to sign out find the sign out button on top right corner
+
+# Additional information
+    For category are not stored in DB with simple rules
+    CategoryID: 1 = Cemilan, 2 = Minuman, 3 = Permen as their CategoryName are retrieved based on CatID vice versa
 
 ## Learn More
 To learn more about Next.js, take a look at the following resources:
