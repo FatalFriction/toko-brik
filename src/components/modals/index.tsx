@@ -53,6 +53,8 @@ export const CardModal = ({ data }: { data: Product }) => {
                                     <div>Length</div>
                                     <Separator orientation="vertical" />
                                     <div>Height</div>
+                                    <Separator orientation="vertical" />
+                                    <div>Weight</div>
                                 </div>
                                 <Separator/>
                                 <div className="flex h-6 justify-evenly items-center space-x-3.5 text-sm py-5">
@@ -61,6 +63,8 @@ export const CardModal = ({ data }: { data: Product }) => {
                                     <div>{data.length}</div>
                                     <Separator orientation="vertical" />
                                     <div>{data.height}</div>
+                                    <Separator orientation="vertical" />
+                                    <div>{data.weight}</div>
                                 </div>
                             </section>
                         </div>
