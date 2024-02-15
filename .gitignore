@@ -9,6 +9,9 @@
 # testing
 /coverage
 
+#db migration
+/migrations
+
 # next.js
 /.next/
 /out/
@@ -34,3 +37,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+prisma/migrations/20240214050341_added_user/migration.sql
